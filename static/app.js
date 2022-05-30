@@ -50,7 +50,20 @@ $(document).ready(function(){
         .catch(err => showResponse(div_show_1_3, err));
 
 
+    // Part 2: Deck of Cards
+    // 1. Make a request to the Deck of Cards API to request a single card from a newly shuffled deck. 
+    // Once you have the card, console.log the value and the suit (e.g. “5 of spades”, “queen of diamonds”).
+    let div_show_2_1 = "part_2_1";
+    let pickCardURL = "http://deckofcardsapi.com/api/deck/new/draw/?count=1";
+    let pickCardPromise = axios.get(pickCardURL);
 
+    pickCardPromise
+        .then(resp => {
+            let card_data = `${resp.data.cards[0].value} ${resp.data.cards[0].suit}`;
+            showResponse(div_show_2_1, card_data);
+            console.log(card_data);
+        })
+        .catch(err => showResponse(div_show_2_1, err));
 
 
 
