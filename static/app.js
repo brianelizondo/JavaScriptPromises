@@ -15,5 +15,33 @@ $(document).ready(function(){
         .catch(err => showResponse(div_show_1_1, err));
 
 
+    // 2. Figure out how to get data on multiple numbers in a single request.
+    // Make that request and when you get the data back, put all of the number facts on the page
+    let div_show_1_2 = "part_1_2";
+    let num_start = parseInt(Math.random() * 100);
+    let num_end = num_start + 4;
+
+    let multipleNumbersURL = `http://numbersapi.com/${num_start}..${num_end}`;
+    let multipleNumbersPromise = axios.get(multipleNumbersURL);
+    
+    multipleNumbersPromise
+        .then(resp => {
+            for(var key in resp.data){
+                showResponse(div_show_1_2, resp.data[key])
+            }
+        })
+        .catch(err => showResponse(div_show_1_2, err));
+
+
+
+
+
+
+
+
+
+
+
+
 
 });
