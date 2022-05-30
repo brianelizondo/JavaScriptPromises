@@ -33,7 +33,21 @@ $(document).ready(function(){
         .catch(err => showResponse(div_show_1_2, err));
 
 
+    // 3. Use the API to get 4 facts on your favorite number. Once you have them all, put them on the page. 
+    // It’s okay if some of the facts are repeats.    
+    let div_show_1_3 = "part_1_3";
+    let getFactsURL = "http://numbersapi.com/random";
+    let getFactsPromise = [];
 
+    for (let i = 1; i < 5; i++){
+        getFactsPromise.push(axios.get(getFactsURL));
+    }
+        
+    Promise.all(getFactsPromise)
+        .then(getFactsArr => (
+            getFactsArr.forEach(resp => showResponse(div_show_1_3, resp.data))
+        ))
+        .catch(err => showResponse(div_show_1_3, err));
 
 
 
