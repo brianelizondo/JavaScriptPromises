@@ -1,0 +1,17 @@
+#deck_game{
+    background-color: green;
+    width: 100% !important;
+    height: 500px !important;
+    padding: 15px 15px;
+}
+#deck_cards{
+    position: relative;
+    width: 100% !important;
+}
+.div_card{
+    position: absolute;
+    left: 0px;
+    top: 0px;
+    width: 100%;
+    text-align: center !important;
+}

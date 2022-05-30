@@ -89,6 +89,32 @@ $(document).ready(function(){
         .catch(err => showResponse(div_show_2_2, err));
 
 
+    // 3. Build an HTML page that lets you draw cards from a deck. 
+    // When the page loads, go to the Deck of Cards API to create a new deck, and show a button on the page that will let you draw a card. 
+    // Every time you click the button, display a new card, until there are no cards left in the deck.
+    let deck_id = "new";
+    let z_index_pos = 1;
+        
+    function appendCard(card_image_url){      
+        let $div_cards = $("#deck_cards");
+        let rotate_deg = Math.floor((Math.random() * (45 - (-45) + 1)) + (-45));
+        let padding_card = Math.floor((Math.random() * (70 - 50 + 1)) + 50);
+        $div_cards.append(`<div class="div_card" style="z-index:${z_index_pos}; padding-top:${padding_card}px;"><img src="${card_image_url}" style="transform: rotate(${rotate_deg}deg);"></div>`);
+        z_index_pos += 1;
+    }
+    $("#get_card_button").on("click", function(){
+        let pickCardURL = `http://deckofcardsapi.com/api/deck/${deck_id}/draw/?count=1`;
+        let pickCardPromise = axios.get(pickCardURL);
 
+        pickCardPromise
+            .then(resp => {
+                appendCard(resp.data.cards[0].image);
+                deck_id = resp.data.deck_id;
+                if(resp.data.remaining == 0){
+                    $("#get_card_button").remove();
+                }
+            })
+            .catch(err => console.log(err));
+    });
 
 });
